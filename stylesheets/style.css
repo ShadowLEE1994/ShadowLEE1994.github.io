@@ -70,8 +70,8 @@
   margin-bottom: 4%;
 }
 .content-section-a img.icon {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
 }
 .content-section-a .intro_p {
   margin-top: 10px;
@@ -87,7 +87,7 @@
 .intro-row {
   text-align: left;
   background-color: #1789ce;
-  padding: 1.5em;
+  padding: 1em;
   color: #fafafa;
 }
 .intro-row h3 {
