@@ -90,11 +90,11 @@ function slideImg(){
 function changeImg(){
 	// 遍历banner所有的div，及dots下所有的span，将其隐藏
 	for(var i=0;i<len;i++){
-		pics[i].style.display="none";
+		pics[i].style.opacity="0";
 		dots[i].className="";
 	}
 	// 根据index找到当前div，和当前span，将其显示出来
-	pics[index].style.display='block';
+	pics[index].style.opacity='1';
 	dots[index].className="active";
 }
 
