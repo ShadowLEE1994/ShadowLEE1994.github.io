@@ -24,7 +24,7 @@ $yellow2 = rgb(253,187,44)
     font-weight 200
     transition 0.3s
     &:hover
-      background-color $red
+      background-color $blue
       transform: scale(1.1)
 
 .navbar-nav
@@ -41,13 +41,13 @@ $yellow2 = rgb(253,187,44)
     border-color transparent
 .intro-header
   padding-top 0
-  padding-bottom 20px
+  padding-bottom 200px
   text-align center
   background $bg-dark-gray
 .intro-message
   position relative
-  padding-top 15%
-  padding-bottom 10%
+  padding-top 20%
+  padding-bottom 5%
   color $white
   h1
     font-size 50px
@@ -148,13 +148,13 @@ $yellow2 = rgb(253,187,44)
   top 0%
   left -100%
   color #fff
-  background-color yellow
+  background-color $blue
   z-index 10
   text-align center
   p
     font-size 50px
     font-weight 300
-    padding-top 80px
+    padding-top 120px
 .container-imgs
   width 1170px
   display block
@@ -177,13 +177,35 @@ $yellow2 = rgb(253,187,44)
   text-align center
   padding-top 5%
   padding-bottom 6%
-  background-color $blue
+  background-color $white
   color $text-white 
   h1
     margin-right 10px
     margin-bottom 20px
   .row
     padding-bottom 3%
+
+.according-title,.according-list a    
+  transition all 0.5s ease
+  display block
+  color #0a8cd2
+  border-radius 5px
+  cursor pointer
+  text-decoration none
+.according-title
+  font-weight 500
+  line-height 1.8
+.according-list a 
+  font-size 20px
+  line-height 2
+.according-title:hover,.according-list a:hover
+  color #fff 
+  background #56ad56 
+  text-indent 30px 
+.according-title.closed + .according-list a
+  transform scale(1,0)
+  transition-duration 0s
+  height 0  
 // content-section-d
 .content-section-d
   background-color #000
