@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>旋转木马</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .poster-main {
+            margin: 50px auto;
+            width: 980px;
+            height: 280px;
+            position: relative;
+        }
+
+        .poster-list {
+            list-style: none;
+            position: relative;
+            width: 100%;
+            height: 240px;
+        }
+
+        .poster-item {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 5px #ccc;
+        }
+
+        .poster-item0 {
+            top: 67px;
+            width: 240px;
+            height: 105px;
+            z-index: 1;
+            left: 0;
+        }
+
+        .poster-item1 {
+            left: 100px;
+            top: 42px;
+            width: 360px;
+            height: 157px;
+            z-index: 2;
+        }
+
+        .poster-item2 {
+            top: 0;
+            left: 215px;
+            z-index: 3;
+        }
+
+        .poster-item3 {
+            top: 42px;
+            width: 360px;
+            height: 157px;
+            z-index: 2;
+            left: 505px;
+        }
+
+        .poster-item4 {
+            top: 67px;
+            width: 240px;
+            height: 105px;
+            z-index: 1;
+            left: 740px;
+        }
+
+        .poster-controls {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            bottom: 0;
+            left: 0;
+            line-height: 40px;
+        }
+
+        .poster-controls>span {
+            display: inline-block;
+            background-color: #666;
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .poster-controls span+span {
+            margin-left: 8px;
+        }
+
+        .poster-controls span.cur {
+            background-color: orange;
+        }
+    </style>
+</head>
+<div class="poster-main">
+    <ul class="poster-list">
+        <li class="poster-item poster-item0"><a><img src="./imgs/1.jpg" alt=""></a></li>
+        <li class="poster-item poster-item1"><a><img src="./imgs/2.jpg" alt=""></a></li>
+        <li class="poster-item poster-item2"><a><img src="./imgs/3.jpg" alt=""></a></li>
+        <li class="poster-item poster-item3"><a><img src="./imgs/4.jpg" alt=""></a></li>
+        <li class="poster-item poster-item4"><a><img src="./imgs/5.jpg" alt=""></a></li>
+    </ul>
+    <div class="poster-controls">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        let pList = document.querySelectorAll('.poster-item')
+        let dots = document.querySelectorAll('span')
+        let len = pList.length
+        let index = Math.floor(len / 2)
+        let arr = []
+        for (let i = 0; i < len; i++) {
+            arr.push({
+                left: getStyle(pList[i], 'left'),
+                top: getStyle(pList[i], 'top'),
+                width: getStyle(pList[i], 'width'),
+                height: getStyle(pList[i], 'height'),
+                zIndex: getStyle(pList[i], 'zIndex'),
+            })
+        }
+
+        var timer = setInterval(function () {
+            index++;
+            index %= len;
+            scroll(index);
+        }, 5000)
+
+        for (let i = 0; i < len; i++) {
+            dots[i].index = i;
+            dots[i].onmouseover = function () {
+                clearInterval(timer);
+                index = this.index;
+                scroll(index)
+            }
+            dots[i].onmouseout = function () {
+                var timer = setInterval(function () {
+                    index++;
+                    index %= len;
+                    scroll(index);
+                }, 5000)
+            }
+        }
+
+        function getStyle(elem, cssname) {
+            if (window.getComputedStyle) {
+                return window.getComputedStyle(elem)[cssname]
+            } else {
+                return elem.currentStyle[cssname]
+            }
+        }
+
+        function scroll(index) {
+            changeDot(index);
+            let newArr = center(arr.slice(0), index);
+            for (let i = 0; i < len; i++) {
+                pList[i].style.zIndex = newArr[i].zIndex;
+                act(pList[i], newArr[i])
+            }
+        }
+
+        function changeDot(num) {
+            for (let i = 0; i < len; i++) {
+                dots[i].className = '';
+            }
+            dots[num].className = 'cur';
+        }
+
+        function center(basicArr, index) {
+            var step = index - Math.floor(len / 2);
+            for (var i = 0; i < Math.abs(step); i++) {
+                if (step < 0) {
+                    basicArr.push(basicArr.shift());
+                } else {
+                    basicArr.unshift(basicArr.pop())
+                }
+            }
+            return basicArr;
+        }
+
+        function act(elem, elemStyles) {
+            if (elem.timer) {
+                clearInterval(elem.timer)
+            }
+            elem.timer = setInterval(function () {
+                var stop = true;
+                for (one in elemStyles) {
+                    let current = parseInt(getStyle(elem, one))
+                    let target = parseInt(elemStyles[one])
+                    var speed = (target - current) / 8
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    if (current != target) {
+                        stop = false;
+                    }
+                    elem.style[one] = current + speed + 'px';
+                }
+                if (stop) {
+                    clearInterval(elem.timer)
+                }
+            },20)
+        }
+    }
+</script>
+
+</html>
