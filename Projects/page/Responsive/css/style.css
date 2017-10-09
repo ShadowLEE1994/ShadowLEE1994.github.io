@@ -1,0 +1,251 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a:link,
+a:visited {
+    color: #757575;
+    text-decoration: none;
+}
+
+body {
+    font-size: .14rem;
+    /* width: 7.68rem; */
+    margin: 0 auto;
+}
+
+
+/*第一区域*/
+
+header .navbar {
+    display: none;
+}
+
+header {
+
+    width: 100%;
+    height: 5rem;
+    background: #B2C5CC url(../素材/1.png) no-repeat 50% 30%;
+    background-size: 15%;
+    position: relative;
+}
+
+header nav {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding-top: .4rem;
+}
+
+header nav a:hover {
+    transition: color 1s linear;
+    color: #afafaf;
+    background: rgb(255, 255, 255);
+}
+
+header p {
+    color: #fff;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+header button {
+    display: block;
+    width: 1.3rem;
+    height: .4rem;
+    text-align: center;
+    margin: .5rem auto;
+    border: none;
+    background: #fff;
+    box-shadow: 0 0 2px 1px #ccc;
+}
+
+header button:hover {
+    transition: color 1s linear;
+    color: #afafaf;
+}
+
+
+/*第二区域*/
+
+.title {
+    width: 100%;
+    height: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    border-bottom: 1px solid #bababa;
+}
+
+.title a {
+    display: inline-block;
+    width: 25%;
+    color: #bababa;
+}
+
+.title a:hover {
+    transition: color 1s linear;
+    color: #545454;
+}
+
+
+/*第三区域*/
+
+.content {
+    width: 60%;
+    margin: 0 auto;
+    height: 5rem;
+    text-align: center;
+    color: #545454;
+    overflow: hidden;
+    font-size: .14rem;
+}
+
+.content h1 {
+    margin: .7rem 0 .2rem;
+}
+
+.content p {
+    text-align: justify;
+    line-height: .25rem;
+}
+
+
+/*第四区域*/
+
+.address {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    height: .7rem;
+    padding: 0 .4rem;
+    align-items: center;
+    background: #f4f4f4;
+    color: #bababa;
+    justify-content: space-between;
+}
+
+.address span:nth-child(1) {
+    font-size: .18rem;
+}
+
+.address span:nth-child(2) a {
+    color: #000;
+}
+
+
+/*第五区域*/
+
+.picture {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: .5rem;
+    background: url(../素材/bg.jpg) no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 0 .3rem .6rem;
+}
+
+.picture p {
+    display: block;
+    width: 100%;
+    margin: .2rem .1rem 0;
+}
+.picture>.bingbox{
+    box-sizing: border-box;
+    // padding: .1rem;
+    float:left;
+    width: 33.3%;
+    height:260px;
+    margin-bottom: 5px;
+    padding:10px;
+    overflow:hidden;
+}
+.picture>.bingbox>.bigimg{
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+.picture>.bingbox>.bigimg>img {
+    width:100%;
+    height:100%;
+    transition: all .5s ease;
+}
+.picture div:hover img {
+    transform: scale(1.2);
+}
+
+
+
+/*第六区域*/
+
+footer {
+    font-size: .16rem;
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+    line-height: .7rem;
+    background: #ccc;
+}
+
+
+/*移动端640px*/
+
+@media screen and (max-width:640px) {
+    header nav {
+        visibility: hidden;
+    }
+    header .navbar {
+        display: block;
+        z-index: 2;
+        top: 0;
+        position: absolute;
+        background-color: #7EA6B1;
+        width: 100%;
+        color: #fff;
+        height: .8rem;
+        overflow: hidden;
+    }
+    header .navbar div {
+
+
+        height: .8rem;
+
+        text-align: center;
+        line-height: .8rem;
+    }
+    header .navbar div span {
+
+        display: block;
+        border: 2px solid #fff;
+        width: .2rem;
+        height: .2rem;
+        position: absolute;
+        top: .3rem;
+        right: .5rem;
+    }
+    header .navbar a {
+        display: block;
+        width: 100%;
+        height: .3rem;
+        line-height: .3rem;
+        text-align: center;
+        color: #fff;
+        border-bottom: 1px solid #ccc;
+    }
+    .content {
+        width: 65%;
+    }
+    .content p {
+        line-height: .35rem;
+    }
+    .picture>.bingbox{
+        width:50%;
+    }
+}
