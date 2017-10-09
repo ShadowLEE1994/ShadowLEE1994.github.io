@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>图片轮播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            margin: 20px auto;
+            width: 1224px;
+            height: 630px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .imgwrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 99999px;
+            height: 500px;
+        }
+
+        .imgwrap>img {
+            float: left;
+        }
+
+        .navswrap {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 1224px;
+            height: 167px;
+            cursor: pointer;
+        }
+
+        .nav {
+            float: left;
+            width: 204px;
+            height: 167px;
+        }
+
+        .navpic {
+            width: 204px;
+            height: 162px;
+            background-position: right center;
+        }
+
+        .nav0 .navpic {
+            background-image: url(imgs/sbanner_00.png);
+        }
+
+        .nav1 .navpic {
+            background-image: url(imgs/sbanner_01.png);
+        }
+
+        .nav2 .navpic {
+            background-image: url(imgs/sbanner_02.png);
+        }
+
+        .nav3 .navpic {
+            background-image: url(imgs/sbanner_03.png);
+        }
+
+        .nav4 .navpic {
+            background-image: url(imgs/sbanner_04.png);
+        }
+
+        .nav5 .navpic {
+            background-image: url(imgs/sbanner_05.png);
+        }
+
+        .prowrap {
+            width: 204px;
+            height: 5px;
+        }
+
+        .pro {
+            height: 5px;
+            width: 0px;
+        }
+
+        .nav0 .prowrap {
+            background: #7b5596;
+        }
+
+        .nav0 .pro {
+            background: #49047a;
+        }
+
+        .nav1 .prowrap {
+            background: #83a2cc;
+        }
+
+        .nav1 .pro {
+            background: #13478f;
+        }
+
+        .nav2 .prowrap {
+            background: #e18e40;
+        }
+
+        .nav2 .pro {
+            background: #b94e00;
+        }
+
+        .nav3 .prowrap {
+            background: #47acab;
+        }
+
+        .nav3 .pro {
+            background: #00605f;
+        }
+
+        .nav4 .prowrap {
+            background: #c86c8c;
+        }
+
+        .nav4 .pro {
+            background: #a41a4a;
+        }
+
+        .nav5 .prowrap {
+            background: #9089d6;
+        }
+
+        .nav5 .pro {
+            background: #4a419e;
+        }
+    </style>
+</head>
+<div class="main">
+    <div class="imgwrap">
+        <img src="./imgs/banner_00.jpg">
+        <img src="./imgs/banner_01.jpg">
+        <img src="./imgs/banner_02.jpg">
+        <img src="./imgs/banner_03.jpg">
+        <img src="./imgs/banner_04.jpg">
+        <img src="./imgs/banner_05.jpg">
+    </div>
+    <div class="navswrap">
+        <div class="nav nav0">
+            <div class="navpic"></div>
+            <div class="prowrap">
+                <div class="pro"></div>
+            </div>
+        </div>
+        <div class="nav nav1">
+            <div class="navpic"></div>
+            <div class="prowrap">
+                <div class="pro"></div>
+            </div>
+        </div>
+        <div class="nav nav2">
+            <div class="navpic"></div>
+            <div class="prowrap">
+                <div class="pro"></div>
+            </div>
+        </div>
+        <div class="nav nav3">
+            <div class="navpic"></div>
+            <div class="prowrap">
+                <div class="pro"></div>
+            </div>
+        </div>
+        <div class="nav nav4">
+            <div class="navpic"></div>
+            <div class="prowrap">
+                <div class="pro"></div>
+            </div>
+        </div>
+        <div class="nav nav5">
+            <div class="navpic"></div>
+            <div class="prowrap">
+                <div class="pro"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        const picnum = 6
+        const picwidth = 1224
+        const picinterval = 20
+        const picduration = 500
+        const prointerval = 20
+        const produration = 5000
+        let index = 0
+        let imgwrap = document.querySelector(".imgwrap")
+        let pros = document.querySelectorAll(".pro")
+        let navs = document.querySelectorAll(".nav")
+// moveTo(imgwrap,-600,500,20)
+progress(pros[index],produration,prointerval);
+for (let i = 0;i<navs.length;i++){
+    navs[i].index=i
+    navs[i].onclick = function(){
+        index=this.index
+        moveTo(imgwrap,-index*picwidth,picduration,picinterval);
+    }
+}
+// 进度条
+function progress(elem,duration,interval){
+    let width = picwidth/picnum;
+    let cover = 0;
+    let stepLength = width/(duration/interval)
+    let tempindex=index;
+    function step(){
+        if (tempindex!==index){
+            clearInterval(intervalId);
+            elem.style.width='0px'
+        }
+        if(cover+stepLength<width){
+            elem.style.width=parseFloat(getStyle(elem,'width'))+stepLength+'px'
+            cover+=stepLength;
+        }else{
+            elem.style.width = '0px'
+            clearInterval(intervalId);
+            index++;
+            index=index%picnum;
+            moveTo(imgwrap,-index*picwidth,picduration,picinterval);
+        }
+    } 
+    var intervalId =setInterval(step,interval);
+}
+// 图片移动函数
+   function moveTo(elem,to,duration,interval){
+       let currPos = parseInt(getStyle(elem,'left'))
+       let dis = Math.abs(to - currPos)
+       let symbol = (to - currPos)/dis;
+       let stepLength = dis/(duration/interval)
+       let cover = 0;
+       let step = function(){
+           if(cover + stepLength<dis)
+             {elem.style.left = parseFloat(getStyle(elem,'left'))+ stepLength*symbol+'px';
+             cover+=stepLength;
+             }else{
+                elem.style.left = to +'px';
+                clearInterval(intervalId);
+                progress(pros[index],produration,prointerval);
+             }
+       }
+       var intervalId =setInterval(step,interval)
+
+   }
+// 获取元素样式
+  function getStyle(elem,cssname)  {
+       if(window.getComputedStyle){
+           return window.getComputedStyle(elem)[cssname];
+       }else{
+        //ie兼容
+        return elem.currentStyle[cssname];
+       }
+   }
+}
+</script>
+</html>
