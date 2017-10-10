@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+        .smallWrap{width:350px;height:350px;margin:50px;border:1px solid #ccc;position:relative;cursor:move;}
+        #magnifier{width:120px;height:120px;position:absolute;background-color:rgba(133,133,0,0.2);border-radius:60px;}
+        .bigWrap{border-radius:200px;width:400px;height:400px;background-image:url(./big.jpg);position:absolute;left:450px;top:50px;border:1px solid #ccc;display:none;}
+    </style>
+</head>
+<body>
+    <div class="smallWrap"><img src="./small.jpg" alt=""></div>
+    <div class="bigWrap"></div>
+    <script>
+        window.onload=function(){
+            let smallWrap = document.querySelector('.smallWrap')
+            let bigWrap = document.querySelector('.bigWrap')
+            let swWidth = smallWrap.clientWidth
+            let swHeight = smallWrap.clientHeight
+
+            smallWrap.onmouseenter =function(e){
+                var magnifier = document.createElement('div')
+                magnifier.id ='magnifier'
+                smallWrap.appendChild(magnifier)
+                setPos(e)
+            }
+            smallWrap.onmousemove = function(e){
+                setPos(e);
+            }
+            smallWrap.onmouseleave = function(e){
+                smallWrap.removeChild(magnifier);
+                bigWrap.style.display = 'none'
+            }
+            function setPos(event){
+                let width = magnifier.clientWidth;
+                let height = magnifier.clientHeight;
+                let pos = getPosInElem(event,smallWrap);
+                let left = pos.x - width/2
+                let top = pos.y - height/2
+                if(left<0){left=0;}
+                if(left+width>swWidth){left=swWidth-width}
+                if(top<0){top=0;}
+                if(top+height>swHeight){top=swHeight-height}
+                magnifier.style.left=left+'px'
+                magnifier.style.top= top +'px'
+                bigWrap.style.display='block'
+                bigWrap.style.backgroundPosition= -left*2+'px'+' '+-top*2+'px';
+            }
+            function getPosInElem(event,elem){
+                return{
+                    x:event.clientX - elem.getBoundingClientRect().left,
+                    y:event.clientY - elem.getBoundingClientRect().top
+                }
+            }
+        }
+    </script>
+</body>
+</html>
