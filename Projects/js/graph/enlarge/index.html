@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+            width: 200px;
+            height: 200px;
+            margin: 38vh auto 0;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./huihui.jpg" alt="慧慧">
+    <script>
+        let img = document.querySelector('img')
+        let big = false
+        let small = false
+
+        function getStyle(ele, cssName) {
+            if (window.getComputedStyle) {
+                return window.getComputedStyle(ele)[cssName]
+            } else {
+                return ele.currentStyle[cssname]
+            }
+        }
+
+        function bigger() {
+            big = true
+            if (big) {
+                var timer1 = setInterval(function () {
+                    if (getStyle(img, 'width') == 400 + 'px') {
+                        big = false
+                    }
+                    if (!big) {
+                        clearInterval(timer1)
+                    } else {
+                        img.style.width = parseInt(getStyle(img, 'width')) + 2 + 'px'
+                        img.style.height = parseInt(getStyle(img, 'height')) + 2 + 'px'
+                    }
+                }, 20)
+            }
+        }
+
+        function smaller() {
+            small = true
+            if (small) {
+                var timer2 = setInterval(function () {
+                    if (getStyle(img, 'width') == 200 + 'px') {
+                        small = false
+                    }
+                    if (!small) {
+                        clearInterval(timer2)
+                    } else {
+                        img.style.width = parseInt(getStyle(img, 'width')) - 2 + 'px'
+                        img.style.height = parseInt(getStyle(img, 'height')) - 2 + 'px'
+                    }
+                }, 20)
+            }
+        }
+        img.onclick = function () {
+            console.log(getStyle(img, 'width'))
+            if (getStyle(img, 'width') == 200 + 'px') {
+                bigger()
+            } else if (getStyle(img, 'width') == 400 + 'px') {
+                smaller()
+            } else {
+                if (big) {
+                    big = false
+                    smaller()
+                } else {
+                    small = false
+                    bigger()
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
