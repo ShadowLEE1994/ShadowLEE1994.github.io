@@ -233,7 +233,8 @@
            
             title[i].onclick = function(){
                 for(let j=0;j<len;j++){
-                title[j].classList.add('closed')
+                    if(j!=i){
+                title[j].classList.add('closed')}
                 }            
                 this.classList.toggle("closed");
             }
