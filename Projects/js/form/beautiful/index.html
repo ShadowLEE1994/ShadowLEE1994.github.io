@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>表单美化</title>
+</head>
+<style type="text/css">
+	.container{
+		max-width: 400px;
+		margin:20px auto;}
+	input,select,textarea{
+		width: 240px;
+		margin: 10px 0;
+		border: 1px solid #999;
+		padding: 0.5em 1em;
+	}
+	label{
+		color: #999;padding-left:10px; 
+	}
+	input:required,textarea:required{
+		border-right:3px solid red;
+	}
+	input:optional,select:optional{
+		border-right:3px solid #999;
+	}
+	input:required +label::after{
+		content:"(必填)";
+	}
+	input:optional +label::after{
+		content:"(选填)";
+	}
+	input:focus,select:focus,textarea:focus{outline: 0;}
+	input:required:focus,textarea:required:focus{
+		box-shadow: 0 0 3px 1px red;
+	}
+	input:optional:focus,select:optional:focus{
+		box-shadow: 0 0 3px 1px #999;
+	}
+	input[type="submit"]{
+		background:#cc00aa;
+		border:2px solid #aa0088;
+		padding:1px 0;
+		color: #fff;
+		margin-left: 10px;
+	}
+	input[type="submit"]:hover{
+		background: red;
+	}
+
+</style>
+<body>
+	<div class="container">
+		<form action="#">
+			<input type="text" required><label>用户名</label>
+			<input type="email" required><label>邮箱</label>
+			<input type="tel"><label>手机</label>
+			<input type="url"><label>网址</label>
+			<select name="#">
+				<option value="1">选项1</option>
+				<option value="2">选项2</option>
+				<option value="3">选项3</option>
+				<option value="4">选项4</option>
+			</select>
+			<textarea name="#" cols="30" rows="10" placeholder="请留言（必填）" required></textarea>
+			<input type="submit" value="提交表单" id="submit">
+		</form>
+	</div>
+</body>
+</html>
