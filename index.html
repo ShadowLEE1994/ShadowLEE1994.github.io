@@ -230,7 +230,7 @@
         let title = document.querySelectorAll(".according-title")
         let len = title.length
         for(let i=len;i--;) {
-            // title[i].index = i;
+            title[i].className="closed"
             title[i].onclick = function(){
                 this.classList.toggle("closed");
             }
