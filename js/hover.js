@@ -2,7 +2,7 @@ function toEdgeDist(x,y,x2,y2){
     const xDiff = x-x2;
     const yDiff = y-y2;
     return (xDiff**2 + yDiff**2);
-    // 算出四边形某条边到几何中点的距离
+    // 算出到每条边中点的距离
 }
 
 //计算出最近的中点
