@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>multilinkage</title>
+</head>
+
+<body>
+    <form>
+        <select>
+            <option>一级目录选择</option>
+        </select>
+        <select>
+            <option>二级目录选择</option>
+        </select>
+        <select>
+            <option>三级目录选择</option>
+        </select>
+        <select>
+            <option>四级目录选择</option>
+        </select>
+    </form>
+    <script>
+        const data = [{
+                text: '1. DOM基础',
+                value: '1',
+                list: [{
+                    text: '1.1 文档树',
+                    value: '1.1',
+                    list: [{
+                        text: '1.1.1 Hello World',
+                        value: '1.1.1',
+                        list: [{
+                            text: '1.1.1.1 OK',
+                            value: '1.1.1.1'
+                        }]
+                    },
+                    {
+                        text: '1.1.2 Web Dev',
+                        value: '1.1.2',
+                        list: [{
+                            text: '1.1.2.1 OK2',
+                            value: '1.1.2.1'
+                        }]
+                    }
+                    ]
+                },
+                {
+                    text: '1.2 节点操作',
+                    value: '1.2'
+                },
+                {
+                    text: '1.3 元素遍历',
+                    value: '1.3'
+                },
+                {
+                    text: '1.4 样式操作',
+                    value: '1.4'
+                },
+                {
+                    text: '1.5 属性操作',
+                    value: '1.5'
+                },
+                {
+                    text: '1.6 表单操作',
+                    value: '1.6'
+                }
+                ]
+            },
+            {
+                text: '2. 事件模型',
+                value: '2',
+                list: [{
+                    text: '2.1 事件类型',
+                    value: '2.1'
+                },
+                {
+                    text: '2.2 事件模型',
+                    value: '2.2'
+                },
+                {
+                    text: '2.3 事件应用',
+                    value: '2.3'
+                }
+                ]
+            }
+            ];
+
+        // 填充元素
+        function fillSelect(select, list) {
+            list.forEach(function (item) {
+                let option = new Option(item.text, item.value)
+                select.add(option);
+            })
+        }
+
+        let selects = document.forms[0].getElementsByTagName('select');
+        // 删除数据
+        function removeOpt(select) {
+            for (let i = select.length - 1; i > 0; i--) {
+                select.remove(i);
+            }
+        }
+
+        function cascade(selectList, data) {
+            //填充一级菜单
+            fillSelect(selectList[0], data)
+            let len = selectList.length
+            for (var i = 0; i < len; i++) {
+                selectList[i].index = i;
+                selectList[i].onchange = function (event) {
+                    //第i变化，删除后续select
+                    for (j = this.index + 1; j < len; j++) {
+                        removeOpt(selectList[j])
+                    }
+                    let helpArr = this.value.split('.');
+                    var next = true;
+                    //初始化list
+                    if (data[selectList[0].value - 1].list) {
+                        var list = data[selectList[0].value - 1].list
+                    } else {
+                        next = false
+                    }
+                    for (var k = 1; k < helpArr.length; k++) {
+                        if (list[helpArr[k] - 1].list) {
+                            list = list[helpArr[k] - 1].list;
+                        } else {
+                            next = false
+                        }}
+                        if (next && selectList[this.index + 1]) {
+                            fillSelect(selectList[this.index + 1], list)
+                        }
+                    
+                }
+            }
+        }
+        cascade(selects, data);
+    </script>
+</body>
+
+</html>
