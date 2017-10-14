@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+</head>
+<style>
+    @import 'https://fonts.googleapis.com/css?family=Quicksand';
+    body {
+        background-color: rgb(192, 219, 255);
+        font-family: "Quicksand", sans-serif;
+    }
+
+    #quote-box {
+        background-color: #fff;
+        position: relative;
+        margin: 100px auto 0;
+        width: 650px;
+        height: auto;
+        border-radius: 10px;
+        padding: 30px 0 0 40px;
+    }
+
+    #quote {
+        position: relative;
+        margin: 20px auto;
+        padding: 30px 50px;
+        height: auto;
+        font-size: 2.3em;
+        color: rgb(192, 219, 255);
+        font-weight: 600;
+    }
+
+    #author {
+        position: relative;
+        padding: 0 70px 100px;
+        text-align: right;
+        font-size: 1.4em;
+        color: rgb(192, 219, 255);
+        margin-bottom: 80px;
+    }
+
+    #icons {
+        position: relative;
+        float: left;
+        top: -161px;
+        padding: 0 20px;
+    }
+    .fa{color:rgb(192, 219, 255)}
+    button {
+        position: relative;
+        float: right;
+        top: -200px;
+        right: 2px;
+        text-align: center;
+        margin: 0 66px 30px 420px;
+        width: 150px;
+        height: 40px;
+        border-style: none;
+        background-color: rgb(192, 219, 255);
+        font-size: 1em;
+        font-weight: 700;
+        border-radius: 2px;
+        font-family: "Quicksand"
+    }
+</style>
+
+<body>
+    <div id="quote-box">
+        <i class="fa fa-3x fa-quote-left"></i>
+        <span id="quote">The only way to get rid of a temptation is to yield to it.</span>
+        <p id="author">- The Wizard of Oz</p>
+        <div id="icons">
+            <a href="#" target="_blank">
+                <i class="fa fa-3x fa-twitter-square"></i>
+            </a>
+            <a href="#" target="_blank">
+                <i class="fa fa-3x fa-tumblr-square"></i>
+        </div>
+        </a>
+        <button id="new-quote">New Quote</button>
+    </div>
+    <script>
+        $(function () {
+            $("#new-quote").click(function () {
+                const colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6',
+                    '#FB6964', '#342224', '#472E32', '#BDBB99', '#77B1A9', '#73A857'
+                ]
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                $("body").animate({
+                    backgroundColor: color
+                }, {
+                    color: color
+                }, 1000);
+                $("#new-quote").animate({
+                    backgroundColor: color
+                }, 1000);
+                $("#author").animate({
+                    color: color
+                }, 1000);
+                $("#quote").animate({
+                    color: color
+                }, 1000);
+                $(".fa").animate({
+                    color: color
+                }, 1000);
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?",
+                    dataType: "jsonp",
+                    success: function (response) {
+                        $('#quote').html(response.quoteText);
+                        $('#author').html("-" + response.quoteAuthor);
+                        $('#icons').children('a').first().attr("href",'https://twitter.com/intent/tweet?hashtags=quote&related=freecodecamp&text='+encodeURIComponent('"'+response.quoteText+'"'+response.quoteAuthor));
+                        $('#icons').children('a').eq(1).attr("href",'https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(response.author)+'&content=' + encodeURIComponent(response.quoteText));
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
