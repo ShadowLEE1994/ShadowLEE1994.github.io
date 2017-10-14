@@ -14,7 +14,6 @@
 			overflow: hidden;
 			visibility: hidden;
 		}
-
 		.pull-left {
 			float: left;
 		}
@@ -25,6 +24,7 @@
 
 		.container {
 			width: 1024px;
+			margin:10% auto;
 		}
 
 		.center-block {
@@ -40,6 +40,7 @@
 
 <body>
 	<div id="v_box" class="clearfix">
+		<div class="container">
 		<div class="pull-left half">
 			<div v-bind:style="totalStyle">
 			</div>
@@ -84,6 +85,7 @@
 			<button v-on:click="useDefaultData('trapezoid')">trapezoid</button>
 		</div>
 	</div>
+</div>
 	<script>
 		Vue.filter('limitNum', {
 			read: function (val) {
