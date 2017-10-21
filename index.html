@@ -246,19 +246,31 @@
 
         function breath() {
             let i = 0;
-            setInterval(function () {
+            function timer() {
+                t = setInterval(function () {
+                    for (let k = 0; k < len; k++) {
+                        title[k].classList.remove('breathing')
+                    }
 
-                for (let k = 0; k < len; k++) {
-                    title[k].classList.remove('breathing')
+                    if (i < len - 1) {
+                        i++
+                        title[i].classList.add('breathing')
+                    } else {
+                        i = 0;
+                        title[i].classList.add('breathing')
+                    }
+                }, 1500)
+                console.log(title[i])
+            }
+            for (let j = 0; j < len; j++) {
+                title[j].onmouseover = function () {
+                    clearTimeout(t)
                 }
-                if (i < len - 1) {
-                    i++
-                    title[i].classList.add('breathing')
-                } else {
-                    i = 0;
-                    title[i].classList.add('breathing')
+                title[j].onmouseout = function () {
+                    timer()
                 }
-            }, 1500)
+            }
+            timer()
         }
         breath()
         according()
