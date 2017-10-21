@@ -164,6 +164,13 @@ $yellow2 = rgb(253,187,44)
 @keyframes shine
   50%
     transform scale(1.1)
+@keyframes breath 
+  50% 
+    transform scale(1.25);
+  100%
+    transform scale(1);   
+.breathing
+  animation breath 1.5s;
 .btn-success
   animation 1s shine infinite 
   i

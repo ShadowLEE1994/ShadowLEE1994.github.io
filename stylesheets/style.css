@@ -162,6 +162,9 @@
   padding-top: 1%;
   padding-bottom: 3%;
 }
+.breathing {
+  animation: breath 1.5s;
+}
 .btn-success {
   animation: 1s shine infinite;
 }
@@ -288,5 +291,37 @@
 @keyframes shine {
   50% {
     transform: scale(1.1);
+  }
+}
+@-moz-keyframes breath {
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes breath {
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes breath {
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes breath {
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
   }
 }
